@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">メモアプリ</string>
+
+    <!-- メイン画面 -->
+    <string name="main_title">メモ一覧</string>
+    <string name="add_memo">メモを追加</string>
+    <string name="empty_list">メモがありません</string>
+
+    <!-- 詳細画面 -->
+    <string name="memo_title_hint">タイトル</string>
+    <string name="memo_content_hint">内容を入力...</string>
+    <string name="save">保存</string>
+    <string name="delete">削除</string>
+    <string name="cancel">キャンセル</string>
+
+    <!-- メッセージ -->
+    <string name="saved">保存しました</string>
+    <string name="deleted">削除しました</string>
+    <string name="error_empty_title">タイトルを入力してください</string>
+    <string name="confirm_delete">このメモを削除しますか？</string>
+</resources>
