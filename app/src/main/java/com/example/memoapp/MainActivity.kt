@@ -1,13 +1,14 @@
 package com.example.memoapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.memoapp.data.MemoRepository
 import com.example.memoapp.databinding.ActivityMainBinding
+import com.example.memoapp.ui.DetailActivity
 import com.example.memoapp.ui.MemoAdapter
-import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,10 +37,11 @@ class MainActivity : AppCompatActivity() {
         // RecyclerViewの設定
         setupRecyclerView()
 
-        // FABのクリックイベント
+        // FABのクリックイベント（新規メモ作成）
         binding.fabAdd.setOnClickListener {
-            // TODO: 詳細画面への遷移（次のステップで実装）
-            Snackbar.make(binding.root, "新規メモ作成（次のステップで実装）", Snackbar.LENGTH_SHORT).show()
+            val intent = Intent(this, DetailActivity::class.java)
+            intent.putExtra(DetailActivity.EXTRA_IS_EDIT_MODE, false)
+            startActivity(intent)
         }
 
         // データを読み込んで表示
@@ -51,13 +53,17 @@ class MainActivity : AppCompatActivity() {
      */
     private fun setupRecyclerView() {
         adapter = MemoAdapter(emptyList()) { memo ->
-            // TODO: 詳細画面への遷移（次のステップで実装）
-            Snackbar.make(binding.root, "メモID: ${memo.id} をクリック", Snackbar.LENGTH_SHORT).show()
+            // メモをタップしたら詳細画面へ遷移
+            val intent = Intent(this, DetailActivity::class.java)
+            intent.putExtra(DetailActivity.EXTRA_MEMO_ID, memo.id)
+            intent.putExtra(DetailActivity.EXTRA_IS_EDIT_MODE, true)
+            startActivity(intent)
         }
 
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = this@MainActivity.adapter
+            setHasFixedSize(true)
         }
     }
 
@@ -66,8 +72,8 @@ class MainActivity : AppCompatActivity() {
      */
     private fun loadMemos() {
         val memos = repository.getMemosSortedByDate()
-
         adapter.updateMemos(memos)
+
         // 空の状態の表示切り替え
         if (memos.isEmpty()) {
             binding.recyclerView.visibility = View.GONE
