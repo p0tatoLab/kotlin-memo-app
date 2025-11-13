@@ -14,7 +14,10 @@
 .cxx
 local.properties
 
-# アプリ固有
+# APKファイル
 *.apk
 *.ap_
 *.aab
+
+# Logファイル
+*.log
