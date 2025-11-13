@@ -2,6 +2,7 @@ package com.example.memoapp.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.example.memoapp.databinding.ItemMemoBinding
 import com.example.memoapp.model.Memo
@@ -12,9 +13,8 @@ class MemoAdapter(
     private val onItemClick: (Memo) -> Unit
 ) : RecyclerView.Adapter<MemoAdapter.MemoViewHolder>() {
 
-    /**
-     * ViewHolder（各アイテムのビューを保持）
-     */
+    private var lastPosition = -1
+
     class MemoViewHolder(
         private val binding: ItemMemoBinding,
         private val onItemClick: (Memo) -> Unit
@@ -25,16 +25,12 @@ class MemoAdapter(
             binding.textContent.text = memo.getPreview()
             binding.textDate.text = DateUtils.getRelativeTimeString(memo.updatedAt)
 
-            // クリックイベント
             binding.root.setOnClickListener {
                 onItemClick(memo)
             }
         }
     }
 
-    /**
-     * ViewHolderを作成
-     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemoViewHolder {
         val binding = ItemMemoBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -44,23 +40,26 @@ class MemoAdapter(
         return MemoViewHolder(binding, onItemClick)
     }
 
-    /**
-     * ViewHolderにデータをバインド
-     */
     override fun onBindViewHolder(holder: MemoViewHolder, position: Int) {
         holder.bind(memos[position])
+
+        // アニメーション（初回表示時のみ）
+        val adapterPosition = holder.bindingAdapterPosition
+        if (adapterPosition != RecyclerView.NO_POSITION && adapterPosition > lastPosition) {
+            val animation = AnimationUtils.loadAnimation(
+                holder.itemView.context,
+                android.R.anim.slide_in_left
+            )
+            holder.itemView.startAnimation(animation)
+            lastPosition = adapterPosition
+        }
     }
 
-    /**
-     * アイテム数を返す
-     */
     override fun getItemCount(): Int = memos.size
 
-    /**
-     * データを更新
-     */
     fun updateMemos(newMemos: List<Memo>) {
         memos = newMemos
+        lastPosition = -1  // アニメーションをリセット
         notifyDataSetChanged()
     }
 }

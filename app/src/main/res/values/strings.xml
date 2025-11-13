@@ -5,6 +5,7 @@
     <string name="main_title">メモ一覧</string>
     <string name="add_memo">メモを追加</string>
     <string name="empty_list">メモがありません</string>
+    <string name="search_hint">メモを検索...</string>
 
     <!-- 詳細画面 -->
     <string name="memo_title_hint">タイトル</string>
@@ -12,10 +13,26 @@
     <string name="save">保存</string>
     <string name="delete">削除</string>
     <string name="cancel">キャンセル</string>
+    <string name="new_memo">新規メモ</string>
+    <string name="edit_memo">メモを編集</string>
 
     <!-- メッセージ -->
     <string name="saved">保存しました</string>
     <string name="deleted">削除しました</string>
     <string name="error_empty_title">タイトルを入力してください</string>
     <string name="confirm_delete">このメモを削除しますか？</string>
+    <string name="confirm_delete_all">すべてのメモを削除しますか？この操作は取り消せません。</string>
+    <string name="all_deleted">すべてのメモを削除しました</string>
+    <string name="no_memos_to_delete">削除するメモがありません</string>
+    <string name="search_no_results">検索結果がありません</string>
+
+    <!-- メニュー -->
+    <string name="action_search">検索</string>
+    <string name="action_sort">並び替え</string>
+    <string name="action_delete_all">すべて削除</string>
+
+    <!-- 並び替え -->
+    <string name="sort_by_date_desc">更新日（新しい順）</string>
+    <string name="sort_by_date_asc">更新日（古い順）</string>
+    <string name="sort_by_title">タイトル順</string>
 </resources>
